@@ -1,0 +1,46 @@
+Spring Boot官方不推荐使用jsp页面,如果要使用jsp需要做好正配置:
+1.在src/main目录下创建webapp文件夹(名称自己定义),习惯在webapp下再创建二级目录jsp文件夹.用于存在页面结构如下:
+    src
+    --main
+    ----java
+    ----resources
+    ----webapp
+    ------jsp
+2.打开设置file --> project structure --> modules --> 工程 --> "+"号添加web --> 将web中 resources directory 目录设置为创建的webapp所在的目录
+
+3.右键创建jsp页面,如果不设置web的resorces directory目录.右键创建不会显示jsp的选项
+
+4.创建controller设置控制,编写请求方法,运行方法访问路径.
+    此时启动项目访问路径会报404,原因:在查找页面时在MATE-INF下找不到webapp中创建的jsp页面,需求手动将webapp目录下的jsp页面编译到MATE-INF/resources目录下
+
+5.在pom中配置注册webapp目录为资源目录,具体配置如下:
+    <!--注册webapp目录为资源目录-->
+		<resources>
+			<resource>
+				<directory>src/main/webapp</directory>
+				<targetPath>MATA-INF/resources</targetPath>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+
+6.到这一步再访问路径时会显示下载页面,原因:springboot无法解析jsp页面所以显示让下载.需要配置tamcat的jsp的解析器,具体配置如下:
+    该解析器内置已经存在,可以在pom中的spring-boot-starter-parent中的spring-boot-dependencies中搜索jasper
+    <!--tomcat内置jsp解析器-->
+ 		<dependency>
+ 			<groupId>org.apache.tomcat.embed</groupId>
+ 			<artifactId>tomcat-embed-jasper</artifactId>
+ 		</dependency>
+
+ 7.配置完成后启动项目访问路径就可以正常访问相关的jsp页面了.
+ 8.配置视图解析器:
+    # 配置前缀和后缀
+    spring:
+      mvc:
+        view:
+          prefix: /jsp
+          suffix: .jsp
+
+
+
