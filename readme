@@ -18,7 +18,7 @@ Spring Boot官方不推荐使用jsp页面,如果要使用jsp需要做好正配�
 		<resources>
 			<resource>
 				<directory>src/main/webapp</directory>
-				<targetPath>MATA-INF/resources</targetPath>
+				<targetPath>META-INF/resources</targetPath>
 				<includes>
 					<include>**/*.*</include>
 				</includes>
