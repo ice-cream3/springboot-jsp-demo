@@ -42,7 +42,7 @@
 		<resources>
 			<resource>
 				<directory>src/main/webapp</directory>
-				<targetPath>MATA-INF/resources</targetPath>
+				<targetPath>META-INF/resources</targetPath>
 				<includes>
 					<include>**/*.*</include>
 				</includes>
